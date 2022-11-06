@@ -25,21 +25,20 @@ again restart the service
 ipaddress kanan.apsit.com (on browser)( kanan.apsit.com== this written in /etc/hosts file)
 
 Exp 1
+
 yum install httpd
 systemctl start httpd
 systemctl enable httpd
 vim /etc/squid/squid.conf
-auth_param basic program /usr/lib64/squid/basic_ncsa_auth /etc/squid/passwd
 
+auth_param basic program  /usr/lib64/squid/basic_ncsa_auth  /etc/squid/passwd
 acl ncsa proxy auth REQUIRED
-
-
 http access deny !ncsa
 
 acl badsites url_regex "/etc/squid/badsites"
 http_access deny badsites
 
-act ip allow src 192.168.122.1 
+acl ip allow src 192.168.122.1 
 http access allow ip allow
 
 
@@ -58,6 +57,7 @@ Ok
 Click
 htpasswd -c /etc/squid passwd yogesh
 rpm -ql squid | grep ncsa_auth
+tail -f /var/log/access.log
 
 EXPT 2 -To Demonstrate IP Spoofing and ARP Spoofing in Local Area Network.
 Centos – IP spoofing
