@@ -1,0 +1,125 @@
+Expt 1 - To Study use of access control Lists to deploy security policies of Web Access by configuring authentication based proxy server by using SQUID.
+rpm -q squid(to check wheter squid is installed or not)
+yum install squid(to install package)
+cd /etc/squid
+ls -l
+cd /home/apsit/Downloads Or cd /root/Downloads/squid
+rsync -Pav /home/apsit/Downloads/squid /etc (to send file)
+cd
+cd /etc/squid/
+ls -l
+Squid works on port no 3128
+Create web server -> yum install httpd-devel.x86-64 (to install package)
+service squid restart
+service squid status
+rpm -q httpd (to check if packg is installed or not)
+Enter IP address on browser and check if its working
+Change proxy settings of browser , set user name n password
+Enter username and password and check whether its working or not
+tail -f /var/log/squid/access.log
+vi forbidden domain
+vi /etc/hosts
+ipaddress kanan.apsit.com
+ping
+cd /etc/squid/
+ls
+vi forbiddem_domain
+htpasswd /etc/squid/passwd
+again restart the service
+
+
+
+EXPT 2 -To Demonstrate IP Spoofing and ARP Spoofing in Local Area Network.
+Centos – IP spoofing
+Ubuntu – ARP spoofing
+IP Spoofing :
+rsync -Pav 192….:/root/TE/ /root/
+cd /root/
+ls -l
+tar -xjSf netkit-2.8….
+tar -xjSf netkit-kernel..
+tar -xjSf netkit-filesystem…
+ls -l (see netkit)
+cd netkit
+ls
+./check_configuration.sh
+You’ll get some error
+Copy the suggestion in error and paste it
+vstart pc1 –eth0=A (ifconfig 192.168.1.11)
+vstart pc2 –eth1=A (ifconfig 192.168.1.12)
+vstart pc3 –eth2=A (ifconfig 192.168.1.13)
+tcpdump -i eth0
+tcpdump -i eth1
+tcpdump -i eth2
+iptables -t nat -A POSTROUTING -p icmp -j SNAT –to-source 192.168.1.12
+ARP Spoofing :
+Check if ARP watch is installed or not
+sudo apt-get install arpwatch
+tail -f /var/log/syslog
+ping ip adres
+to change MAC address use -> ifconfig enp4s0 hw ether mac(put changes mac address in place of mac)
+
+
+EXPT 3A : To Study use of Iptables to configure  stateful Software firewall on Linux Host.
+rpm -q iptables
+default policy of iptables is drop, so that packet cannot be accepted without permission
+iptables -L (to list all tables)
+iptables -L INPUT
+iptables –flush
+iptables -L OUTPUT
+incoming traffic -> iptables -A INPUT -p tcp –dport 80 -m conntrack –ctstate NEW, ESTABLISHED, -j ACCEPT
+outgoing traffic -> iptables -A OUTPUT -p tcp –sport 80 -m conntrack –ctstate ESTABLISHED -j ACCEPT
+
+
+
+EXPT 3B - To study analysis of network packets by sing open source sniffing tools like tcpdump and Wireshark in promiscuous and non-promiscuous mode.
+rpm -q hping3
+yum install hping3.x86_64
+if another process is running – pkill processed
+service httpd status
+service httpd start
+For icmp -> tcpdump -i enp4s0 -n -A-XX icmp
+For port 80 -> tcpdump -i enp4s0 -n -A-XX port 80
+For DOS attack 
+For icmp -> hping3 –flood -a 7.7.7.7 -1 -p 6234 192.168.8.164
+For port 80 -> hping3 -S -a 7.7.7.7 –flood -p 80 192.168.8.164
+Ssh root@192.168.8.38 -X
+For random IP -> hping3 –flood –rand-source -1 -p 22 192.168.8.164
+
+
+
+EXPT 4 – To Use Nmap for Network discovery and security Auditing.
+Install nmap -> yum install nmap
+ssh root@192...
+service httpd
+Open 2 terminal
+In 1st terminal -> nmap -sS 192…..
+In 2nd terminal -> tcpdump -i enp4s0 -n -A -XX port 80
+nmap -sS -p 80 192….
+nmap -sT -p 80 192..
+
+
+EXPT 6 – To study Intrusion Detection and Prevention system SNORT and its log analysis.Assignment
+snort –version
+sudo apt-get update
+sudo apt-get install snort
+cd /etc/snort
+ls -l
+vi snort.conf
+for log files -> cd /var/log/snort
+to read log files -> tcpdump -r snort.log.1664375…
+to capture traffic -> snort -d -l /var/log/snort -c /etc/snort/snort.conf -I enp4s0
+tail -f /var/log/snort/alert
+for logger mode -> snort -l /var/log/snort/ -b -h 192.168…
+for ids mode -> rsync -Pav /etc/snort apsit@192....:/etc/snort /etc/
+
+
+Experiment 9: To study and implement IPSEC in Linux.Assignment
+ssh root@192... -X
+rpm -q ipsec-tools
+system-config-network
+service network restart
+in GUI -> click new -> nickname -> host to host encryption -> encryption via racoon -> 2nd machines IP -> authentication pvt key = 123456 -> apply -> deactivate -> activate -> file -> save
+on one machine run -> tcpdump -I any -n -A -XX host 192….
+On 2nd machine run -> ping 192…
+In tcpdump logs u should see logs as AH ESP 
