@@ -1,4 +1,5 @@
-Expt 1 - To Study use of access control Lists to deploy security policies of Web Access by configuring authentication based proxy server by using SQUID.
+Expt 1 - To Study use of access control Lists to deploy security policies of Web Access by configuring 
+authentication based proxy server by using SQUID.
 rpm -q squid(to check wheter squid is installed or not)
 yum install squid(to install package)
 cd /etc/squid
@@ -19,13 +20,9 @@ Enter username and password and check whether its working or not
 tail -f /var/log/squid/access.log
 vi forbidden domain
 vi /etc/hosts
-ipaddress kanan.apsit.com
-ping
-cd /etc/squid/
-ls
-vi forbiddem_domain
-htpasswd /etc/squid/passwd
+htpasswd /etc/squid/passwd user(add a new username in place of user)
 again restart the service
+ipaddress kanan.apsit.com (on browser)( kanan.apsit.com== this written in /etc/hosts file)
 
 
 
@@ -60,19 +57,28 @@ ping ip adres
 to change MAC address use -> ifconfig enp4s0 hw ether mac(put changes mac address in place of mac)
 
 
-EXPT 3A : To Study use of Iptables to configure  stateful Software firewall on Linux Host.
+
+EXPT 3A : To Study use of Iptables to configure stateful Software firewall on Linux Host.
 rpm -q iptables
 default policy of iptables is drop, so that packet cannot be accepted without permission
 iptables -L (to list all tables)
 iptables -L INPUT
 iptables –flush
 iptables -L OUTPUT
-incoming traffic -> iptables -A INPUT -p tcp –dport 80 -m conntrack –ctstate NEW, ESTABLISHED, -j ACCEPT
-outgoing traffic -> iptables -A OUTPUT -p tcp –sport 80 -m conntrack –ctstate ESTABLISHED -j ACCEPT
+incoming traffic ->
+iptables -A INPUT -p tcp - -dport 80 -m conntrack - -ctstate NEW, ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -p tcp - -sport 80 -m conntrack - -ctstate ESTABLISHED -j ACCEPT
+outgoing traffic -> 
+iptables -A OUTPUT -p tcp - -dport 22 -m conntrack - -ctstate ESTABLISHED -j ACCEPT
+iptables -A INPUT -p tcp - -sport 22 -m conntrack - -ctstate ESTABLISHED -j ACCEPT
+on machine 1
+ssh root@ip of other machine
+keep default policy of machine 2 as accept 
+then put ipaddress of machine 1 on machine 2 browser
 
 
-
-EXPT 3B - To study analysis of network packets by sing open source sniffing tools like tcpdump and Wireshark in promiscuous and non-promiscuous mode.
+EXPT 3B - To study analysis of network packets by sing open source sniffing tools like tcpdump and 
+Wireshark in promiscuous and non-promiscuous mode.
 rpm -q hping3
 yum install hping3.x86_64
 if another process is running – pkill processed
@@ -88,6 +94,7 @@ For random IP -> hping3 –flood –rand-source -1 -p 22 192.168.8.164
 
 
 
+
 EXPT 4 – To Use Nmap for Network discovery and security Auditing.
 Install nmap -> yum install nmap
 ssh root@192...
@@ -97,6 +104,7 @@ In 1st terminal -> nmap -sS 192…..
 In 2nd terminal -> tcpdump -i enp4s0 -n -A -XX port 80
 nmap -sS -p 80 192….
 nmap -sT -p 80 192..
+
 
 
 EXPT 6 – To study Intrusion Detection and Prevention system SNORT and its log analysis.Assignment
@@ -119,7 +127,8 @@ ssh root@192... -X
 rpm -q ipsec-tools
 system-config-network
 service network restart
-in GUI -> click new -> nickname -> host to host encryption -> encryption via racoon -> 2nd machines IP -> authentication pvt key = 123456 -> apply -> deactivate -> activate -> file -> save
+in GUI -> click new -> nickname -> host to host encryption -> encryption via racoon -> 2nd machines IP -> 
+authentication pvt key = 123456 -> apply -> deactivate -> activate -> file -> save
 on one machine run -> tcpdump -I any -n -A -XX host 192….
 On 2nd machine run -> ping 192…
-In tcpdump logs u should see logs as AH ESP 
+In tcpdump logs u should see logs as AH ES
