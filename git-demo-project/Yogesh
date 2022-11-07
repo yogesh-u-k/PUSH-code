@@ -126,6 +126,44 @@ Ssh root@192.168.8.38 -X
 For random IP -> hping3 –flood –rand-source -1 -p 22 192.168.8.164
 tcp.port==80
 
+-----------3B_Tcpdump ----------
+tcpdump -i lo  -> ping 127.0.0.1 
+tcpdump -i enp4s0 port 80 
+tcpdump -D -> it will display all interfaces
+tcpdump -i lo -A -> ping 127.0.0.1 -> display in ascii
+tcpdump -i lo -c 5 -> ping 127.0.0.1 -> only capture 5 packets
+tcpdump -i lo -w file.pcap -> ping 127.0.0.1 -> capture and store in file.pcap
+tcpdump -r file.pcap -> just run this command store packet will be display
+tcpdump -i enp4s0 tcp
+tcpdump -i enp4s0 -n -A -xx port 22 (for packet generation do shh process ssh aspit@ipaddress)
+tcpdump -i enp4s0 -n -A -xx port 80 (for packet generation ping from 1pc to another pc)
+tcpdump -i enp4s0 -n -A -xx icmp 
+
+-------------3B Wireshark--------------
+1. Filter traffic on specific IP address
+This will display all traffic for the IP entered, source or destination.
+ip.addr==192.168.1.2
+2. Filter by source address
+This will only show traffic where the source IP address is 192.168.1.2
+ip.src==192.168.1.2
+3. Filter by destination address
+Displays only traffic for the matching destination IP.
+ip.dst==192.168.1.2
+4. Filter on TCP port
+tcp.port==80
+tcp.srcport==80
+tcp.dstport==80
+5. Filter background network noise
+There are several protocols that can be very noisy, it sometimes helps to filter this out so you can focus on other traffic.
+!(arp or icmp or dns)
+This will filter out arp, icmp and DNS traffic.
+6.Filter on port and IP Address
+If you want to see traffic from a certain IP on a specific port use this filter
+tcp.port 80 && ip.addr == 192.168.1.2
+This will show only port 80 (https) that has IP 192.168.1.2 in the source or destination.
+7. Detecting SYN Floods (Possible DDoS attacks)
+tcp.flags.syn == 1 and tcp.flags.ack == 0
+
 
 
 
@@ -167,3 +205,176 @@ authentication pvt key = 123456 -> apply -> deactivate -> activate -> file -> sa
 on one machine run -> tcpdump -I any -n -A -XX host 192….
 On 2nd machine run -> ping 192…
 In tcpdump logs u should see logs as AH ES
+
+
+
+
+--------------Exp4_nmap--------------
+sudo su
+yum install namp
+service httpd start
+service httpd status
+In terminal 1 
+nmap -sS 127.0.0.1 -p 80 (SYN scan open)
+nmap -sT 127.0.0.1 -p 80 (FULL scan open)
+nmap -sF 127.0.0.1 -p 80 (FIN scan open)
+nmap -sN 127.0.0.1 -p 80 (NULL scan open)
+nmap -sV 127.0.0.1 -p 80 (VERSION scan open)
+nmap -sS -O <host ipaddress (OS scan open)
+nmap -sX 127.0.0.1 -p 80 (XMAS scan open)
+
+nmap -sS ipadd/lo ipadd  
+
+In terminal 2
+tcpdump -i enp4s0/lo -n -A -xx port 80
+For close use service httpd stop and run above commands
+
+-----------------Exp-6_Snort---------------------
+Verifying state of snort daemon  after installation :
+
+ps -aux | grep snort
+service snort status
+
+
+#type command for packet capturing mode
+directly put the commands no need to go in any directory
+In terminal 1
+snort -d -l /var/log/snort/ -c /etc/snort/snort.conf -i enp4s0
+In terminal 2
+ping ipadd
+
+
+#type command for packet  Logger mode
+(logs files are generated in /var/log/snort/ )
+#Type command the following command
+In terminal 1
+snort -l /var/log/snort -b -h ipadd
+In terminal 2
+cd /var/log/snort
+ls
+then choose the latest log file our logs will be generated
+#to read the file 
+tcpdump -r /var/log/snort/snort.log.________   (in _________ put latest file)
+# Do'nt run the below command it is for reference for above command how it will be looking
+tcpdump -r /var/log/snort/snort.log.1492253446
+
+
+#type command for IDS/NIDS mode
+cd
+cd /etc/snort
+search for snort.conf by ls
+cat /etc/snort/snort.conf  (it will include)
+include /etc/snort/rules/rules/icmp.rules
+include /etc/snort/rules/rules/telnet.rules
+-------->include /etc/snort/rules/rules/myrules.rules 
+if above is  present then  cat /etc/snort/rules/myrules.rules -> should contain include 3 rules then type (snort -d  -l... search for this command below and continue from there)
+
+Then we will move rules folder & create & new rule/generate alert in rule by 
+creating myrules.rule
+
+cd /etc/snort/rules
+cat/vim myrules.rules (type the below code in it)
+alert tcp ipadd any -> any any (msg:"Hello"; flags:S; sid:10000;)
+alert tcp ipadd any -> ipadd any (msg:"You are captured"; nocase; sid:10002;)
+#alert tcp/icmp any <> any any (msg:"you are gone"; sid:10003;)
+save and exit
+
+After creating myrules.rules we will include in snort.conf file
+cd ..
+cd /etc/snort/snort.conf
+vim snort.conf
+Type -> include /etc/snort/rules/myrules.rules (save & exit)
+
+Then type command 
+snort -d -l /var/log/snort/ -c /etc/snort/snort.conf -i enp4s0
+
+In another terminal
+type command 
+tail -f /var/log/snort/alert
+(Alert will be generated you can see it in)
+cd /var/log/snort  (ls -l /var/log/snort/ | grep alert)
+ls -l
+(you can see alert file)
+
+---------------Exp_9ipsec-tools------------------
+rsync -Pav 192.168.8.38:/root/fc8.vdi /root/
+In ubuntu Require 2 pc
+Open fedora in VB
+login as root ss
+open terminal type -> ipsec-tools or yum install ipsec-tools
+Go to VB setting->network->mode of networking->select Bridge adapter
+Come back to fedora (steps to perform on both pc's)
+system-config-network
+
+
+The ipsec terminal will be open(perform this on both the pc)
+click on Ipsec on the bar given below -> click on New -> one different page will be open
+
+type any name
+select -> host 2 host
+select protocol -> rakoon
+type ipadd of Another Pc
+ type key & password (both should be same for both pc's)
+key=123456
+click ok
+
+Then click on Deactivate
+Then click on activate
+Then click on save
+Then click on quit
+
+service network restart
+
+on pc1 terminal type-> tcpdump -i any -n -A -xx Ipadd of pc2
+If Above command give error runs this -> tcpdump -i any/enp4s0 -nXXX host Ipadd of pc2
+in this tcpdump logs us should see logs as ESP AH 
+
+on pc2 terminal type-> ping pc1
+
+ --------------MD5 and SHA-1----------------
+ rsync -Pav 192.168.8.38:/root/Desktop/Windows.vdi /root/
+
+login to centos or ubuntu -> open terminal 
+rsync -Pav 192.168.8.38:/root/Desktop/Windows.vdi/root/ (for windows vdi file)
+open virtual box and select windows and start
+Open cryptool in windows 
+edit the startingexample.txt appearing on screen(delete written text and type anything you want)
+Then click on indiv.procedures -> select hash -> click on any hash function
+Click on store hash value to HEX format
+
+------------- Symmetric and Asymmetric-----------
+login to centos or ubuntu -> open terminal 
+rsync -Pav 192.168.8.38:/root/Desktop/Windows.vdi/root/ (for windows vdi file)
+open virtual box and select windows and start
+Open cryptool in windows 
+edit the startingexample.txt appearing on screen(delete written text and type anything you want)
+Then click on Encrypt/Decrypt -> select symmetric classic -> click on any function
+For  playfair type anything as key(only alphabets)
+Then click on encrypt
+for decrpyt again click on Encrypt/Decrypt -> select symmetric classic -> select playfair
+enter the same key which entered for encrypt 
+click on decrypt
+
+---------------digital signature-------------------
+login to centos or ubuntu -> open terminal 
+rsync -Pav 192.168.8.38:/root/Desktop/Windows.vdi/root/ (for windows vdi file)
+open virtual box and select windows and start
+Open cryptool in windows 
+open cryptool
+Click on Digital signature -> Signature demonstration
+Click on open document(select a text file from system if not create one)
+Click on Document
+Click on Select hash function -> select on hash fucntion -> ok
+Click on hash function
+Click on Compute hash value -> click on hash value
+Click on generate key -> then on generate prime numbers 
+-> again click on generate prime -> apply primes -> store key
+Click on encrypt hash value
+click on Provide certificate -> fill personal data (name,first name,PIN,verification)
+-> create certificate and pse
+Click on encrypted hash value
+Click on generate signature -> Then signature
+Click on store signature -> ok
+
+
+
