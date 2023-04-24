@@ -1,354 +1,391 @@
+---------------------------------->id card<------------------------
+
+import 'package:flutter/material.dart';
+
+class IdCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.grey[900],
+      appBar: AppBar(
+        title: Text('Student ID Card'),
+        centerTitle: true,
+        backgroundColor: Colors.pink[200],
+        foregroundColor: Colors.grey[200],
+        elevation: 0.8,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+            child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: const <Widget>[
+            Center(
+              child: CircleAvatar(
+                radius: 100.0,
+                backgroundImage: NetworkImage(
+                    'https://webstockreview.net/images/male-clipart-professional-man-3.jpg'),
+              ),
+            ),
+            Divider(
+              color: Colors.lightGreenAccent,
+              height: 60.0,
+            ),
+            Text(
+              'Name of Student : Yogesh Kumbhar',
+              style: TextStyle(
+                color: Colors.blueAccent,
+                letterSpacing: 2.0,
+                fontSize: 21,
+              ),
+            ),
+            SizedBox(height: 30.0),
+            Text(
+              'Department : I.T.',
+              style: TextStyle(
+                color: Colors.yellow,
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0,
+                letterSpacing: 3.0,
+              ),
+            ),
+            SizedBox(height: 10.0),
+            Text(
+              'Moodle Id : 20104139',
+              style: TextStyle(
+                color: Colors.lightGreenAccent,
+                letterSpacing: 3.0,
+                fontSize: 20.0,
+              ),
+            ),
+            Text(
+              'Academic Year : 2022-23',
+              style: TextStyle(
+                color: Colors.yellow,
+                letterSpacing: 3.0,
+                fontSize: 20.0,
+              ),
+            ),
+            SizedBox(),
+            Text(
+              'Date of Birth : 15-06-2003',
+              style: TextStyle(
+                color: Colors.lightGreenAccent,
+                letterSpacing: 3.0,
+                fontSize: 20,
+              ),
+            ),
+          ],
+        )),
+      ),
+    );
+  }
+}
 
 
-1. Login with your AWS account. 
-2. Search for Cloud 9 service. 
-3. Click on Create Enviornment. (For Region select california) 
-->Provide name for the Enviornment and click on next. 
-->Keep all the Default settings -> click on Next Step 
-->Review the Enviornment name and Settings and click on Create Enviornment 
-4.Search for IAM -> Click on Users from left panel ->create a user 
-->provide a name -> select AWS management console access 
-->select custom password->provide a password->uncheck require passwd reset 
-->click on Next:permission->select add user to group->Click on Create group 
-->Provide group name and click on create group 
-->click on next-> click on Review->click on create user 
-->Now close that window and Navigate to user Groups from left pane in IAM. 
-->click on your group name which you have created and nevigate to permission tab 
-->click on Add permission and select Attach Policy ->search for Awscloud9EnviornmentMember 
-and select Awscloud9EnviornmentMember policy and add it. 
-5.now we move towards our cloud9 IDE Enviornment tab 
-->Click on File you can create new file or 
-choose from template, here we are opting html file to collaborate. 
-->Edit html file and save it 
-->click on 
--> click on Share option on Right Panel and search for user u have createdand click on Invite 
-and enable persmission as RW (Read and Write) and click on Done. Click OK for 
-Security warning. 
-6.Open your Browsers Incognito Window and login with IAM user 
-(For account id click on ur username copy the 12 digit account provide username nd passed u have created for the us
-er) 
-(For Region select california) 
-7.open Cloud9 service from dashboard services and click on shared with you enviornment -> open IDE 
-Done with exp 
- 
-------------------ELASTIC BEANSTAlK------------------ 
- 
-1.go to Elastic beanstalk 
-Application name - provide any name 
-key - provide any name 
-value - provide any name 
-platform - php 
-select sample application 
-create application 
-2.• Visit our GitHub repository containing the sample code at 
-https://github.com/imoisharma/aws-codepipeline-s3- 
-codedeploy-linux-2.0 
-• Click the dist folder. 
-• Click the file named aws-codepipeline-s3-aws-codedeploy_linux.zip 
-• Click View Raw. 
-• Save the sample file to your local computer. 
-3.open the Amazon S3 console 
-• Click Create Bucket 
-• Bucket Name: type a unique name for your bucket. 
-• Region: In the drop-down, select the region where you will create your pipeline, 
-such as ap-South-1 
-• Click Create.
+---------------------------------End of id card<-----------------------------------------------
 
-Click Properties. 
-• Expand Versioning and select Enable Versioning.and save 
-Click Upload. 
-upload the downloaded folder from the git. 
-Click Upload. 
-4.go to pipeline 
-->name it 
-->keep default setting -> click on next 
-->source provider - amazon s3 
-->bucket - select bucket what u have created 
-->s3 object key-s3://<yourbucketname>/zipfile 
-Don't copy this command e.g(s3://xyz/aws-codepipeline-s3-aws-codedeploy) 
-->select amazon cloudwatch events 
-->click on skip build stage 
-->Deploy Stage: 
-• Deployment provider: Click AWS Elastic Beanstalk. 
-• Application name: select what u have created 
-• Environment name: select what u have created -> click next 
-Now go to your Elastic beanstalk environment and 
-click on the URL to view the sample website you deployed. 
-congratulations ...................... 
-will be displayed 
- 
-------------------EXP 5 & 6--------------------------- 
- 
-Exp5 
-Aim: To Build, change, and destroy AWS infrastructure Using Terraform. 
-Installation of terraform-> 
-1.https://www.terraform.io/downloads 
-->copy the commands for ubuntu 
-OR 
-->download the binary 
-->unzip filename.zip 
-->cd into that folder 
-->sudo mv terraform /usr/local/bin/ 
-->run terraform -v 
-Done with exp 5 
- 
-Exp6 
-Aim: To Build, change, and destroy AWS infrastructure Using Terraform. 
-1.sudo apt-get install curl 
-2.curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" 
-3.sudo apt install unzip 
-4.sudo unzip awscliv2.zip 
-5.sudo ./aws/install 
-6.aws --version 
-above command should display-> aws-cli/2.1.29 Python/3.8.8 Linux/5.4.0-1038-aws exe/x86_64.ubuntu.18 prompt/
-off 
-7.Login to AWS console 
-->Region should be Asia Pacific (Mumbai) ap-south-1 
-->click on username and go to My security credentials 
-->click on access keys 
-->Create a new access key. Make sure you download the keys in your local machine. 
-->copy the access key id and secret access key & paste in texteditor 
-8.In terminal type->
-aws configure 
-paste the access key id: 
-paste the secret access key: 
-region name: ap-south-1 
-for output format -> just press Enter 
-9.mkdir project-terraform -> cd project-terraform/ 
-10.In AWS search for key-pair (it will be in Features) 
-->create a new key-pair 
-->name it as terraform ->RSA ->.ppk ->click on create an Key pair 
-11.In Terminal -> sudo nano variables.tf 
-paste the below code-> 
- 
-variable "aws_region" { 
-description = "The AWS region to create things in." 
-default = "ap-south-1" 
-} 
- 
-variable "Key_name" { 
-description = " SSH Keys to connect to ec2 instance" 
-default = "terraform" 
-} 
- 
-variable "instance_type" { 
-description = "instance type for ec2" 
-default = "t2.micro" 
-} 
- 
-save and exit 
- 
-12.Search for AMI->click on instance->launch instance 
-->give any name ->select Amazon Linux->copy the AMI ID->t2.micro->select key-pair u have created->launch inst
-ance 
-13.In terminal->sudo nano main.tf 
-paste the below code (search for ami = "put your AMI ID here" in the code )-> 
- 
-provider "aws" { 
-region = var.aws_region 
-} 
- 
-#Create security group with firewall rules 
-resource "aws_security_group" "security_jenkins_port" { 
-name = "security_jenkins_port" 
-description = "security group for jenkins" 
- 
-ingress { 
-from_port = 8080 
-to_port = 8080 
-protocol = "tcp" 
-cidr_blocks = ["0.0.0.0/0"] 
-} 
- 
-ingress { 
-from_port = 22 
-to_port = 22 
-protocol = "tcp"
 
-cidr_blocks = ["0.0.0.0/0"] 
-} 
-# outbound from jenkis server 
-egress { 
-from_port = 0 
-to_port = 65535 
-protocol = "tcp" 
-cidr_blocks = ["0.0.0.0/0"] 
-} 
- 
-tags= { 
-Name = "security_jenkins_port" 
-} 
-} 
- 
-resource "aws_instance" "myFirstInstance" { 
-ami = "paste your AMI ID" 
-instance_type = var.instance_type 
-security_groups= [ "security_jenkins_port"] 
-tags= { 
-Name = "jenkins_instance" 
-} 
-} 
- 
-# Create Elastic IP address 
-resource "aws_eip" "myFirstInstance" { 
-vpc = true 
-instance = aws_instance.myFirstInstance.id 
-tags={ 
-Name = "jenkins_elstic_ip" 
-} 
-} 
- 
-14.In Terminal -> terraform init 
--> terraform plan 
-the above command will show how many resources will be added. 
-Plan: 3 to add, 0 to change, 0 to destroy. 
--> terraform apply (type yes if asked) 
-15.Go TO EC2 instance refresh the page u will see jenkins_instance (In running state) 
-16.In Terminal->terraform destroy 
-17.Go TO EC2 instance refresh the page jenkins_instance (will be in terminated state) 
- 
- 
--------------------------SONARQUBE SAST-------------------------------- 
- 
- 
-exp :7 To understand Static Analysis SAST process and learn to integrate Jenkins SAST 
-to SonarQube/GitLab 
- 
-->wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add - 
-->sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list' 
-->sudo apt-get install jenkins 
-->sudo systemctl start jenkins 
-->sudo ufw allow 
-->sudo ufw allow OpenSSH
->sudo ufw enable 
-->sudo ufw status 
- 
-Setting Up Jenkins 
-http://your_server_ip_or_domain:8080-> 
-http://127.0.0.1:8080 or http://localhost:8080 
-continue from step 4 from the link following link and Jenkins will be installd 
-https://www.digitalocean.com/community/tutorials/how-to-install-jenkins-on-ubuntu-22-04 
- 
-SonarQube Setup 
-1.docker run -d -p 9000:9000 sonarqube 
-2.enter http://localhost:9000 
-3.Then, login using default credentials 
-(admin:admin) 
- 
-Generate User Token 
-go to Administration> User > My Account > Security and then, from 
-the bottom of the page you can create new tokens Name -> by clicking the Generate Button. Copy the Token 
-and keep it safe. 
- 
-Jenkins Setup for SonarQube 
-we need to install the SonarQube Scanner plugin in Jenkins. 
-go to Manage Jenkins > Plugin Manager > Available. From here, type SonarQube Scanner then select and 
-install. 
- 
-Tool Configuration SonarQube Scanner 
-Manage Jenkins > Configure System > SonarQube Server 
-Add SonarQube > 
-give the Name ->SonarQube 
-Server URL -> http://localhost:9000 
-server Authentication token -> 
-Authentication token in the Jenkins Credential Manager 
- 
-go to Manage Jenkins > Global Tool Configuration > SonarQube Scanner. Then, Click Add SonarQube Scanner But
-ton. 
-From there, give some name of the scanner type and Add Installer of your choice. 
-In this case, I have selected SonarQube Scanner from Maven Central. 
- 
---------------------------LAMBDA FUNCTION----------------------------- 
- 
-Steps: First Lambda functions using Python 
-1.search for Lambda and open it. 
-2.choose region as Asia pacific (Mumbai) ap-south-1 
-3.click on Create Lambda function 
-->select author from scratch 
-->Give any function name 
-->for Runtime select python 3.8 
-->select create a new role with basic lambda permission 
-->click on create function 
-4.scroll down and edit the existing code just paste the following code-> 
-import json 
-def lambda_handler(event, context): 
-first_number = 10 
-second_number = 20 
-sum = first_number + second_number
-return sum 
-->save ctrl + s 
-5.click on Test dropdown nd click on Configure Test Event 
-->select create new test event 
-->Give any Event name 
-->delete the existing code just leave it as 
-{ 
- 
-} 
-6.click on save 
-7.click on deploy and Click on Test and in execution result tab result will be displayed 
- 
-Write a sample Second sample python Code: 
-8.Edit the code and save it-> 
-def lambda_handler(event, context): 
-if event["name"] == "abc": 
-return "xyz" 
-9.click on Deploy button 
-10.click on Test dropdown nd click on Configure Test Event 
-->select edit saved test events 
-->in Event JSON section edit the code as-> 
-{ 
-"name": "abc" 
-} 
-11.click on save 
-12.click on Test and you are done with the exp 
- 
------------------------S3 IMAGE BUCKET----------------------------- 
- 
-Creating S3 Bucket-> 
-1.search for S3 and click S3 
-2.click on Create bucket 
-->Give bucket name 
-->Select Aws region as->Asia pacific (Mumbai) 
-->click on create bucket 
-3.click the bucket name and it will ask you to upload files 
-4.Thus, we are done with bucket creation in S3. 
- 
-Create Role that Works with S3 and Lambda-> 
-5.search for IAM and click on it 
-6.Roles (which will be left nav bar) 
-7.click on create Role 
-->select AWS service 
-->select Lambda and click on next 
-->search for AmazonS3FullAccess, AWSLambda_FullAccess and CloudWatchFullAccess 
-->select on next 
-->Give Role name and click on create role (role will be created) 
- 
-Create Lambda function and Add S3 Trigger 
-8.search for Lambda and click on it 
-9.click on create function 
-->give function name 
-->runtime as -> node.js 14.x 
-->select use an existing role 
-->select role u have created
->click create bucket 
-10.scroll down to configuration 
-->click on triggers->click on add triggers->select a source as S3 
-->select bucket you have created->in Suffix-> put .jpg-> click on Add 
-11.edit the code as-> 
-exports.handler = function(event, context, callback) { 
-console.log("Incoming Event: ", event); 
-const bucket = event.Records[0].s3.bucket.name; 
-const filename = decodeURIComponent(event.Records[0].s3.object.key.replace(/\+/g, ' ')); 
-const message = 'An Image has been added - ${bucket} -> ${filename}'; 
-console.log(message); 
-callback(null, message); 
-}; 
-->click on deploy 
-12.go to S3 bucket and click on s3 bucket u have created 
-->Click Add files to add files. 
-->upload any image 
-13.Go to Cloudwatch 
-->CloudWatch->Log groups->click on lambda u have created->again click on a long click 
-14.Go to Again Lambda fucntion -> click on test ->click on Configure on test Event->name it and save it 
-15.Error is shown in execution tab
+-------------------------------->list view<---------------------------------------------------
+import 'package:flutter/material.dart';
+
+class ProductListView extends StatelessWidget {
+  const ProductListView({Key? key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(title: Text("Product List")),
+        body: Padding(
+          padding: const EdgeInsets.fromLTRB(3.0, 12.0, 3.0, 12.0),
+          child: ListView(
+            children: <Widget>[
+              ProductBox(
+                  name: "iPhone",
+                  description: "iPhone is the top branded phone ever",
+                  price: 55000,
+                  image:
+                      'https://thumbs.dreamstime.com/b/iphone-xs-max-illustration-icons-mockup-vector-new-apple-smartphone-isolated-white-background-127712063.jpg'),
+              ProductBox(
+                  name: "Android",
+                  description: "Android is a very stylish phone",
+                  price: 10000,
+                  image:
+                      "https://m.media-amazon.com/images/I/71AvQd3VzqL._SL1500_.jpg"),
+              ProductBox(
+                  name: "Tablet",
+                  description:
+                      "Tablet is a popular device for official meetings",
+                  price: 25000,
+                  image:
+                      "https://m.media-amazon.com/images/I/81gC7frRJyL._SX679_.jpg"),
+              ProductBox(
+                  name: "Laptop",
+                  description: "Laptop is most famous electronic device",
+                  price: 35000,
+                  image:
+                      "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/mbp-spacegray-select-202206?wid=640&hei=595&fmt=jpeg&qlt=95&.v=1664497359481"),
+              ProductBox(
+                  name: "Desktop",
+                  description: "Desktop is most popular for regular use",
+                  price: 10000,
+                  image:
+                      "https://rukminim1.flixcart.com/image/416/416/ktlu9ow0/allinone-desktop/6/p/q/mhk03hn-a-apple-original-imag6xfhaxggptbk.jpeg?q=70"),
+            ],
+          ),
+        ));
+  }
+}
+
+class ProductBox extends StatelessWidget {
+  ProductBox(
+      {Key? key,
+      required this.name,
+      required this.description,
+      required this.price,
+      required this.image})
+      : super(key: key);
+  final String name;
+  final String description;
+  final int price;
+  final String image;
+
+  Widget build(BuildContext context) {
+    return Container(
+        padding: EdgeInsets.all(2),
+        height: 110,
+        child: Card(
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+              Image.network(image),
+              Expanded(
+                  child: Container(
+                      padding: EdgeInsets.all(5),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Text(this.name,
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          Text(this.description),
+                          Text("Price: " + this.price.toString()),
+                        ],
+                      )))
+            ])));
+  }
+}
+-------------------------------->End of list view<--------------------------------
+
+
+
+--------------------------------->Grid view<-----------------------------------------------------
+
+import 'package:flutter/material.dart';
+
+class MyGridView extends StatelessWidget {
+  const MyGridView({Key? key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+          appBar: AppBar(
+            title: Text("Cloneterest"),
+          ),
+          body: Center(
+              child: Container(
+                  child: GridView.count(
+            scrollDirection: Axis.vertical,
+            crossAxisCount: 2,
+            children: [
+              Card(
+                child: Image.network(
+                    "https://m.media-amazon.com/images/I/71AvQd3VzqL._SL1500_.jpg"),
+              ),
+              Card(
+                child: Image.network(
+                    "https://webstockreview.net/images/male-clipart-professional-man-3.jpg"),
+              ),
+              Card(
+                color: Colors.blue,
+              ),
+              Card(
+                color: Colors.red,
+              ),
+              Card(
+                color: Colors.yellow,
+              ),
+            ],
+          )))),
+    );
+  }
+}
+
+--------------------------------------------END of grid view<------------------------------------------------------
+
+
+
+------------------------------------------>Form<---------------------------------------------------
+
+import 'package:flutter/material.dart';
+
+class MyCustomForm extends StatefulWidget {
+  const MyCustomForm({super.key});
+
+  @override
+  State<MyCustomForm> createState() => _MyCustomFormState();
+}
+
+class _MyCustomFormState extends State<MyCustomForm> {
+  final _formKey = GlobalKey<FormState>();
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 100,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                // The validator receives the text that the user has entered.
+                decoration: InputDecoration(
+                  labelText: "Name",
+                  hintText: "Enter your Name",
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Enter your Name: ';
+                  }
+                  return null;
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                decoration: InputDecoration(
+                  labelText: "Mobile Number",
+                  hintText: "Enter your Mobileno.",
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Enter your Mobile Number: ';
+                  }
+                  if (value.length != 10) {
+                    return "Please Enter Correct Digits";
+                  }
+
+                  return null;
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                decoration: InputDecoration(
+                  labelText: "password",
+                  hintText: "Enter your password.",
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                ),
+                obscureText: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Enter your Password ';
+                  }
+
+                  return null;
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  // Validate returns true if the form is valid, or false otherwise.
+                  if (_formKey.currentState!.validate()) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Login Successful')),
+                    );
+                  }
+                },
+                child: const Text('Submit'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+------------------------------------->End of Form<--------------------------------
+
+
+------------------------------------>Geasture Detector<-------------------------------
+
+import 'package:flutter/material.dart';
+
+class Gesture extends StatefulWidget {
+  const Gesture({super.key});
+
+  @override
+  State<Gesture> createState() => _GestureState();
+}
+
+class _GestureState extends State<Gesture> {
+  bool _lightIsOn = false;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('CHANGE STATE OF LIGHTS'),
+      ),
+      body: Container(
+        alignment: FractionalOffset.center,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Icon(
+                Icons.lightbulb_outline,
+                color: _lightIsOn ? Colors.yellow.shade600 : Colors.black,
+                size: 60,
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  // Toggle light when tapped.
+                  _lightIsOn = !_lightIsOn;
+                });
+              },
+              child: Container(
+                color: Colors.yellow.shade600,
+                padding: const EdgeInsets.all(8),
+                // Change button text when light changes state.
+                child: Text(_lightIsOn ? 'TURN LIGHT OFF' : 'TURN LIGHT ON'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+--------------------------------->End of Geasture Detector<-------------------------------------
+
+
+
 
